@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{$Think.Config.Appname}——用户注册</title>
+<link rel="stylesheet" href="__TMPL__/Public/Css/common.css" type="text/css" />
+<script type="text/javascript" src="__TMPL__/Public/Js/jquery.js"></script>
+<script type="text/javascript" src="__TMPL__/Public/Js/common.js"></script>
+<link rel="stylesheet" href="__TMPL__/Login/Css/login.css" type="text/css" />
+</head>
+<body>
+<form action="register" method="post">
+<div id="register">
+<if condition="$msg neq null">
+	<div id="error">
+		错误: {$msg}
+	</div>
+</if>
+<div id="registerform">
+	<label for="name">用户名</label><input class="input_large" id="name" name="name" type="text" value="{$name}" /><br/>
+	<label for="pwd">密码</label><input class="input_large" id="pwd" name="pwd" type="password" value="{$pwd}" />
+	<label for="repwd">重复密码</label><input class="input_large" id="repwd" name="repwd" type="password" value="{$repwd}" />
+	<div id="btns">
+		<input type="submit" class="button" value="注册" />
+		<input type="button" class="button" value="返回登录" onclick="window.location.href='login'" /><br/>
+	</div>
+</div>
+</div>
+</form>
+</body>
+</html>
