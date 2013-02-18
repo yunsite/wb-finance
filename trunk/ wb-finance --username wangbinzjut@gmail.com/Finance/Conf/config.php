@@ -15,5 +15,6 @@ return array(
 
 	'Appname' => '个人理财系统',
 	'App' => '__ROOT__/Finance',
+	'VAR_PAGE' => 'p',
 );
 ?>

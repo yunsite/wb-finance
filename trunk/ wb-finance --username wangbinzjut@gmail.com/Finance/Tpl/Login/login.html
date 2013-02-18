@@ -1,31 +1,43 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>{$Think.Config.Appname}——登陆</title>
-<link rel="stylesheet" href="__TMPL__/Public/Css/common.css" type="text/css" />
-<script type="text/javascript" src="__TMPL__/Public/Js/jquery.js"></script>
-<script type="text/javascript" src="__TMPL__/Public/Js/common.js"></script>
-<link rel="stylesheet" href="__TMPL__/Login/Css/login.css" type="text/css" />
-</head>
-<body>
-<form action="login" method="post">
-<div id="login">
-<if condition="$msg neq null">
-	<div id="error">
-		错误: {$msg}
+<!-- 登录对话框 -->
+<div id="login" class="modal hide fade" role="dialog">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>个人理财系统登录</h3>
 	</div>
-</if>
-<div id="loginform">
-	<label for="name">用户名</label><input class="input_large" id="name" name="name" value="{$name}" type="text" /><br/>
-	<label for="pwd">密码</label><input class="input_large" id="pwd" name="pwd" value="{$pwd}" type="password" />
-	<label for="autologin"><input type="checkbox" id="autologin" name="autologin" value="autologin"> 下次自动登录</label><br/><br/>
-	<div id="btns">
-		<input type="submit" class="button" value="登录" />
-		<input type="button" class="button" value="注册" onclick="window.location.href='register'" /><br/>
+
+	<div class="modal-body">
+		<!--显示错误信息-->
+		<div class="row-fluid hide" id="error">
+			<div class="offset3 span6 alert alert-error" id="errorInfo">
+			</div>
+		</div>
+		<!--登录-->
+		<form class="form-horizontal" action="checkLogin" method="post">
+			<div class="control-group">
+				<label class="control-label" for="name">用户名</label>
+				<div class="controls">
+					<input type="text" class="input-medium" placeholder="用户名" id="name" name="name">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="pwd">密码</label>
+				<div class="controls">
+					<input type="password" class="input-medium" placeholder="密码" id="pwd" name="pwd">
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<label class="checkbox" for="autologin">
+						<input type="checkbox" id="autologin" name="autologin" value="autologin"> 下次自动登录
+					</label>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="modal-footer">
+		<input type="button" class="btn btn-primary" id="btnLogin" value="登录">
+		<!--<a class="btn btn-primary" href="#register">注册</a>-->
+		<input type="button" class="btn" data-dismiss="modal" value="关闭">
 	</div>
 </div>
-</div>
-</form>
-</body>
-</html>
