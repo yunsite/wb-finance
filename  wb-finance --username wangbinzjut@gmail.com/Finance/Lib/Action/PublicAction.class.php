@@ -11,7 +11,15 @@ class PublicAction extends Action {
 		//}
 	}
 	
-	public function top() {
+	public function header() {
+		$this->checkUser();
+		$this->assign('user', $_SESSION['user']);
+		$time = date("Y-m-d");
+		$this->assign('time', $time);
+		$this->display();
+	}
+
+	public function header2() {
 		$this->checkUser();
 		$this->assign('user', $_SESSION['user']);
 		$time = date("Y-m-d");
@@ -36,12 +44,13 @@ class PublicAction extends Action {
 		
 		if (isset($_SESSION['user'])) {
 			unset($_SESSION['user']);
+			session_destroy();
 		}
-		if (isset($_COOKIE['user'])) {
-			setcookie('user', '', time() - 1);
-			//setcookie('PHPSESSID', '', time() - 1);
-			//echo "dsfsdf";
-		}
+//		if (isset($_COOKIE['user'])) {
+//			setcookie('user', '', time() - 1);
+//			//setcookie('PHPSESSID', '', time() - 1);
+//			//echo "dsfsdf";
+//		}
 		$Index = new IndexAction();
 		$Index->index();
 	}
