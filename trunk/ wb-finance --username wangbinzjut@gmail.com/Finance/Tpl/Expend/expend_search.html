@@ -1,0 +1,44 @@
+<div class="tab-pane fade" id="expend_search">
+	<form class="form-inline">
+		<label>类 别</label>
+		<select id="search_categoryList" name="category" class="input-medium">
+		</select>&nbsp;&nbsp;&nbsp;
+		<label>起止时间</label>
+		<input type="date" class="input-medium" id="search_starttime"> —
+		<input type="date" class="input-medium" id="search_endtime">
+		<input type="button" class="btn btn-primary" value="搜索" onclick="search()">
+	</form>
+
+	<!--表格-->
+	<table class="table table-bordered table-hover">
+		<!--表头-->
+		<thead>
+			<tr>
+				<th><input type="checkbox" id="search_selectAll"></th>
+				<th>类 别</th>
+				<th>金 额</th>
+				<th>时 间</th>
+				<th>操 作</th>
+			</tr>
+		</thead>
+		<!--数据-->
+		<tbody>
+			<!-- 循环将数据输出 -->
+			<volist name="search_expendList" id="vo">
+				<tr id="{$vo.id}">
+					<td><input type="checkbox" class="search_toggle"></td>
+					<td>{$vo.item}</td>
+					<td>{$vo.money}元</td>
+					<td>{$vo.time}</td>
+					<td>
+						<a style="cursor:pointer" title="删除" onclick="del({$vo.id}, 'expend')"><img
+								src="../Public/Images/del.png" border="0"/></a>
+						<a style="cursor:pointer" title="修改" href="#expend_update" data-toggle="modal"
+						   onclick="showUpdateDialog('{$vo.id}', '{$vo.item}', '{$vo.money}', '{$vo.time}')">
+							<img src="../Public/Images/alter.png" border="0"/></a>
+					</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
