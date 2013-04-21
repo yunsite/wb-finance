@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$Think.config.Appname}——支出</title>
+	<meta charset="utf-8"/>
+	<load href="__TMPL__bootstrap/css/bootstrap.css"/>
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+	<style type="text/css">
+		section {
+			margin-top: 40px;
+		}
+		.modal {
+			margin-top: 100px;
+		}
+		.selected {
+			color: #0000ff;
+			font-style: italic;
+		}
+		.pagination {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	</style>
+</head>
+<body>
+<include file="../Public/header"/>
+
+<section class="container-fluid well">
+	<div class="row-fluid">
+		<div class="offset2 span8 well">
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active"><a href="#expend_detail" data-toggle="tab">支出明细</a></li>
+				<li><a href="#expend_add" data-toggle="tab">增加支出</a></li>
+				<li><a href="#expend_search" data-toggle="tab">搜 索</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<!--支出明细-->
+				<div class="tab-pane fade in active" id="expend_detail">
+					<!--<div class="btn-group">-->
+						<!--<button class="btn">修 改</button>-->
+						<!--<button class="btn">删 除</button>-->
+						<!--<button class="btn">刷 新</button>-->
+					<!--</div>-->
+					<div class="pagination">
+						<ul>
+							{$page}
+						</ul>
+					</div>
+					<!--表格-->
+					<table class="table table-bordered table-hover">
+						<!--表头-->
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="selectAll"></th>
+								<th>类 别</th>
+								<th>金 额</th>
+								<th>时 间</th>
+								<th>操 作</th>
+							</tr>
+						</thead>
+						<!--数据-->
+						<tbody>
+							<!-- 循环将数据输出 -->
+							<volist name="expendList" id="vo">
+								<tr id="{$vo.id}">
+									<td><input type="checkbox" class="toggle"></td>
+									<td>{$vo.item}</td>
+									<td>{$vo.money}元</td>
+									<td>{$vo.time}</td>
+									<td>
+										<a style="cursor:pointer" title="删除" onclick="del({$vo.id}, 'expend')"><img
+												src="../Public/Images/del.png" border="0"/></a>
+										<a style="cursor:pointer" title="修改" href="#expend_update" data-toggle="modal"
+										   onclick="showUpdateDialog('{$vo.id}', '{$vo.item}', '{$vo.money}', '{$vo.time}')">
+											<img src="../Public/Images/alter.png" border="0"/></a>
+									</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+
+				<!--增加支出-->
+				<include file="expend_add"/>
+
+				<!--搜索-->
+				<include file="expend_search"/>
+			</div>
+
+			<include file="expend_update"/>
+
+		</div>
+	</div>
+</section>
+
+<load href="__TMPL__/Public/Js/jquery.js"/>
+<load href="__TMPL__/bootstrap/js/bootstrap.js"/>
+<load href="__TMPL__/Expend/Js/expend.js"/>
+</body>
+</html>
