@@ -1,62 +1,74 @@
-@CHARSET "UTF-8";
-
-.modal {
+#login, #register {
+	background: url(../Images/login_form.png) no-repeat;
+	height: 250px;
+	width: 300px;
+	padding: 80px 50px;
+	margin: 0 auto;
 	margin-top: 100px;
 }
 
-.navbar-wrapper {
+.titleInfo {
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.result {
+	font-size: 20px;
+	color: red;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#bg {
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
-	right: 0;
-	z-index: 10;
-	margin-top: 30px;
-	margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+	z-index: -1;
 }
 
-.carousel .container {
-	position: relative;
-	z-index: 9;
+.icon {
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
 }
 
-.carousel-control {
-	height: 80px;
-	margin-top: 0;
-	font-size: 120px;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, .4);
-	background-color: transparent;
-	border: 0;
+.name-icon {
+	background: url(../Images/login-icon.png) no-repeat 0px 0px;
 }
 
-.carousel .item {
-	height: 650px;
+.pwd-icon {
+	background: url(../Images/login-icon.png) no-repeat -30px 0px;
 }
 
-.carousel img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	min-width: 100%;
-	height: 650px;
+.control {
+	line-height: 20px;
 }
 
-.carousel-caption {
-	background-color: transparent;
-	position: static;
-	max-width: 550px;
-	padding: 0 20px;
-	margin-top: 300px;
-	margin-left: 550px;
+.clearfix {
+	display: inline-block;
 }
 
-.carousel-caption h1,
-.carousel-caption .lead {
-	margin: 0;
-	line-height: 1.25;
-	color: #000;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+#name, #pwd, #repwd {
+	height: 25px;
+	font-size: 18px;
+	margin-left: 15px;
 }
 
-.carousel-caption .btn {
+#btnLogin, #btnRegister, #returnLogin {
+	margin-left: 50px;
+	margin-bottom: 10px;
+	height: 35px;
+	width: 220px;
+}
+
+#btnLogin {
 	margin-top: 10px;
+}
+
+.line {
+	border-bottom: 1px dashed #09c;
+	margin-bottom: 10px;
 }
