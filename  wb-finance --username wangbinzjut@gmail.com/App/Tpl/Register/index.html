@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>个人理财系统——用户登录</title>
+	<meta charset="utf-8"/>
+	<css href="__PUBLIC__/bootstrap/css/bootstrap.min.css"/>
+	<css href="__PUBLIC__/Css/login.css"/>
+</head>
+<body>
+<div>
+	<img src="__PUBLIC__/Images/login_bg.jpg" id="bg"/>
+
+	<form id="registerForm" action="checkRegister" method="post">
+		<div id="register">
+			<div class="titleInfo">用户注册</div>
+			<div class="result">&nbsp;</div>
+			<div class="control">
+				<label for="name" class="icon name-icon clearfix"></label>
+				<input type="text" id="name" name="name" placeholder="用户名">
+			</div>
+			<div class="control">
+				<label for="pwd" class="icon pwd-icon clearfix"></label>
+				<input type="password" id="pwd" name="pwd" placeholder="密   码">
+			</div>
+			<div class="control">
+				<label for="repwd" class="icon pwd-icon clearfix"></label>
+				<input type="password" id="repwd" name="repwd" placeholder="重复密码">
+			</div>
+			<div class="control">
+				<input type="button" class="btn btn-primary" id="btnRegister" value="注册">
+			</div>
+			<div class="line"></div>
+			<div class="control">
+				<input type="button" class="btn btn-success" id="returnLogin" value="返回登录">
+			</div>
+		</div>
+	</form>
+</div>
+
+<js href="__PUBLIC__/Js/Jquery/jquery.min.js" />
+<js href="__PUBLIC__/Js/Jquery/jquery.form.js" />
+<js href="__PUBLIC__/Js/register.js" />
+
+<script>
+	// 解决IE浏览器不显示placeholder问题
+	var funPlaceholder = function (element) {
+		var placeholder = '';
+		if (element && !("placeholder" in document.createElement("input")) && (placeholder = element.getAttribute("placeholder"))) {
+			element.onfocus = function () {
+				if (this.value === placeholder) {
+					this.value = "";
+				}
+				this.style.color = '';
+			};
+			element.onblur = function () {
+				if (this.value === "") {
+					this.value = placeholder;
+					this.style.color = 'gray';
+				}
+			};
+			//样式初始化
+			if (element.value === "") {
+				element.value = placeholder;
+				element.style.color = 'gray';
+			}
+		}
+	};
+	funPlaceholder(document.getElementById("name"));
+	funPlaceholder(document.getElementById("pwd"));
+	funPlaceholder(document.getElementById("repwd"));
+</script>
+</body>
+</html>
