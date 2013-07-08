@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$Think.config.Appname}——首页</title>
+	<meta charset="utf-8">
+	<load href="__PUBLIC__/bootstrap/css/bootstrap.min.css"/>
+	<style type="text/css">
+		section {
+			margin-top: 40px;
+		}
+	</style>
+
+</head>
+<body>
+<include file="Public:header"/>
+
+<section class="container-fluid well">
+	<div class="row-fluid">
+		<div class="offset1 span5 well">
+			支出报表
+		</div>
+		<div class="span5 well">
+			收入报表
+		</div>
+	</div>
+</section>
+
+<include file="Public:footer"/>
+
+<load href="__PUBLIC__/Js/Jquery/jquery.min.js"/>
+<load href="__PUBLIC__/bootstrap/js/bootstrap.min.js"/>
+<script>
+	$(document).ready(function () {
+		$('#nav_index').addClass('active');
+	});
+</script>
+</body>
+</html>
