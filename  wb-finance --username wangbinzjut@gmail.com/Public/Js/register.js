@@ -14,6 +14,7 @@ function getRootPath() {
 
 var userList;
 var flag = true;	// 是否可提交数据
+var info = "";	// 错误信息
 
 // 初始化得到所有注册用户
 function init() {
@@ -60,28 +61,32 @@ $(document).ready(function () {
 		flag = true;
 		for (var i = 0; i < userList.length; i++) {
 			if (name.val() == userList[i]) {
-				result.html('该用户名已存在！');
+				info = '该用户名已存在！';
+				result.html(info);
 				flag = false;	// 用户已存在，不能提交数据
 			}
 		}
 	}
 
 	function register() {
-		if (name.val() == '') {
-			result.html('请输入用户名！');
-			return false;
-		} else if (pwd.val() == '') {
-			result.html('请输入密码！');
-			return false;
-		} else if (repwd.val() == '') {
-			result.html('请再次输入密码！');
-			return false;
-		} else if (pwd.val() != repwd.val()) {
-			result.html('两次密码输入不同！');
-			return false;
-		}
-
 		if (flag) {
+			if (name.val() == '') {
+				info = '请输入用户名！';
+				result.html(info);
+				return false;
+			} else if (pwd.val() == '') {
+				info = '请输入密码！';
+				result.html(info);
+				return false;
+			} else if (repwd.val() == '') {
+				info = '请再次输入密码！';
+				result.html(info);
+				return false;
+			} else if (pwd.val() != repwd.val()) {
+				info = '两次密码输入不同！';
+				result.html(info);
+				return false;
+			}
 			$.ajax({
 				url: 'checkRegister',
 				type: 'post',
@@ -89,7 +94,8 @@ $(document).ready(function () {
 				success: function (data) {
 					data = eval("(" + data + ")");
 					if (data['status'] == 1) {
-						result.html('注册成功！');
+						info = '注册成功！';
+						result.html(info);
 						window.location = getRootPath() + '/Login/index';
 					}
 				}
