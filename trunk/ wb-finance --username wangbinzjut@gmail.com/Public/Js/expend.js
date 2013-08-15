@@ -1,42 +1,34 @@
-var categoryList;
+//var categoryList;
 
 function initiate() {
-	$.ajax({
-		url: 'expend_categoryList',
-		type: 'post',
-		success: function(data) {
-			var jsonData = eval('(' + data + ')');
-			categoryList = jsonData['categoryList'];
-		}
+	$('#add_time,#update_time').datepicker({
+		format: "yyyy-mm-dd",
+		language: "zh-CN"
 	});
 }
 
 function del(id, in_ex) {
-	var r = confirm('确定删除该项记录吗？');
-	if (r) {
-		// 使用ajax方式提交，删除某项后不刷新整个页面，只更新表格。
-		if (in_ex == 'expend') {
-			$.ajax({
-				url: "expend_del?id=" + id,
-				type: 'get',
-				success: function() {
-					$('#' + id).remove();
-					changeTable();
-				},
-				error: function() {
-					alert('error');
-				}
-			});
-		}
-		else if (in_ex == 'income')
-			location.href = "income_del?id=" + id;
+	// 使用ajax方式提交，删除某项后不刷新整个页面，只更新表格。
+	if (in_ex == 'expend') {
+		$.ajax({
+			url: "expend_del?id=" + id,
+			type: 'get',
+			success: function() {
+				$('#' + id).remove();
+			},
+			error: function() {
+				alert('del error');
+			}
+		});
 	}
+	else if (in_ex == 'income')
+		location.href = "income_del?id=" + id;
 }
 
 // 更新记录
 function update() {
 	var id = $('#update_id');
-	var item = $('option:selected');
+	var item = $('#update_category > option:selected');
 	var money = $('#update_money');
 	var time = $('#update_time');
 	if (money.val() == '' || time.val() == '') return false;
@@ -50,34 +42,25 @@ function update() {
 		success: function(data) {
 			$('#expend_update').modal('hide');
 			// 修改成功后更新页面
-			$('tr#' + id.val() + ' td:eq(1)').html('<strong>' + item.val() + '</strong>');
-			$('tr#' + id.val() + ' td:eq(2)').html('<strong>' + money.val() + '元</strong>');
-			$('tr#' + id.val() + ' td:eq(3)').html('<strong>' + time.val() + '</strong>');
-
+			$('tr#' + id.val()).addClass('bold');
+			$('tr#' + id.val() + ' td:eq(1)').html(item.val());
+			$('tr#' + id.val() + ' td:eq(2)').html(money.val() + '元');
+			$('tr#' + id.val() + ' td:eq(3)').html(time.val()
+				+ '<span class=\"hidden\" style=\"float: right\"><a style=\"cursor:pointer\" title=\"修改\" href=\"#expend_update\" data-toggle=\"modal\" onclick=\"showUpdateDialog(\''
+				+ id.val() + '\',\'' + item.val() + '\', \'' + money.val() + '\'\"><img src=\"/wb_Finance/Public/Images/alter.png\" border=\"0\"/></a></span>');
 		}
 	});
 }
 
 function showUpdateDialog(id, item, money, time) {
-	$('option').remove();
 	$('#update_money').val(money);
 	$('#update_time').val(time);
 	$('#update_id').val(id);
-	for (var i = 0; i < categoryList.length; i++) {
-		var tmp = categoryList[i]['item'];
-		if (tmp == item) {
-			$('#categoryList').append('<option value="' + tmp + '" selected>' + tmp + '</option>');
-		} else {
-			$('#categoryList').append('<option value="' + tmp + '">' + tmp + '</option>');
+	$('#update_category option').each(function () {
+		if ($(this).text() == item) {
+			$(this).attr('selected', 'selected');
 		}
-	}
-}
-
-function changeTable() {
-	$('tr').removeClass('success');
-	$('tr').removeClass('info');
-	$('tr:even').addClass('success');
-	$('tr:odd').addClass('info');
+	})
 }
 
 function add_cancle() {
@@ -86,37 +69,23 @@ function add_cancle() {
 }
 
 function add_add() {
-	var item = $('#add_categoryList');
+	var item = $('#add_category');
 	var money = $('#add_money');
 	var time = $('#add_time');
+
 	if (money.val() == '' || time.val() == '') return false;
 	$.ajax({
 		url: 'expend_add',
 		type: 'post',
 		data: {item: item.val(), money: money.val(), time: time.val()},
 		success: function(data) {
+//			alert("success");
+			alert(data);
 			// 添加成功后刷新页面
-			window.location.reload();
-
-			// 未实现的方法
-			// 成功后将结果添加到table的第一行
-			var jsonData = eval('(' + data + ')');
-			money.val('');
-			time.val('');
-			$('a[href="#expend_detail"]').tab('show');
-			$('table tbody').prepend('<tr id="' + jsonData['id'] + '">' +
-				'<td><input type="checkbox" class="toggle"></td>' +
-				'<td>' + jsonData['item'] + '</td>' +
-				'<td>' + jsonData['money'] + '元</td>' +
-				'<td>' + jsonData['time'] + '</td>' +
-				'<td><a style="cursor: pointer" title="删除" onclick="del(' + jsonData['id'] + ', "expend")">' +
-					'<img src="/wb_Finance/Finance/Tpl/Public/Images/del.png" border="0"></a>' +
-					'<a style="cursor: pointer" title="修改" href="#expend_update" data-toggle="modal"' +
-					' onclick="showUpdateDialog("' + jsonData['id'] + '", "' + jsonData['item'] + '", "'
-					+ jsonData['money'] + '", "' + jsonData['time'] + '")">' +
-					'<img src="/wb_Finance/Finance/Tpl/Public/Images/alter.png" border="0"></a></td>' +
-				'</tr>');
-			changeTable();
+//			window.location.reload();
+		},
+		error: function () {
+			alert('add error');
 		}
 	});
 }
@@ -138,13 +107,52 @@ function search() {
 
 $(document).ready(function() {
 	$('#nav_expend').addClass('active');
-	changeTable();
 
-	$('tbody > tr').click(function() {
-		if ($(this).hasClass('selected')) {
-			$(this).removeClass('selected').find(':input').removeAttr('checked');
+	// 单击删除按钮
+	$('#del').click(function () {
+		if ($('.toggle:checked').length == 0) {
+			alert('没有选中项！');
+			return;
+		}
+		var r = confirm('确定删除选中记录吗？');
+		if (r) {
+			var arr = new Array();
+			var k = 0;
+			$('tbody > tr > td > input').each(function () {
+				var checkbox = $(this);
+				if (checkbox.attr('checked') == 'checked') {
+					var id = checkbox.parents('tr').attr('id');
+					arr[k++] = id;
+				}
+			});
+			for (var i = 0; i < k; i++) {
+				del(arr[i], 'expend');
+			}
+		}
+	});
+
+	// 刷新按钮
+	$('#refresh').click(function () {
+		window.location.reload();
+	});
+
+	// 鼠标放在某一行上显示修改按钮
+	$('tbody > tr').mouseenter(function () {
+		var span = $(this).children('td').eq(3).children('span');
+		span.removeClass('hidden');
+	});
+	$('tbody > tr').mouseleave(function () {
+		var span = $(this).children('td').eq(3).children('span');
+		span.addClass('hidden');
+	});
+
+	// 单击table的某一行
+	$('tbody > tr > td').click(function() {
+		var checkbox = $(this).parent('tr').children('td').eq(0).children('input');
+		if  (checkbox.attr('checked') == 'checked') {
+			checkbox.removeAttr('checked');
 		} else {
-			$(this).addClass('selected').find(':input').attr('checked', 'checked');
+			checkbox.attr('checked', 'checked');
 		}
 
 		// 如果全部选中，将全选的框选中
@@ -156,27 +164,20 @@ $(document).ready(function() {
 		}
 	});
 
-	// 全选
+	// 单击全选框
 	$('#selectAll').click(function() {
 		if ($(this).attr('checked') == 'checked') {
 			$('.toggle').attr('checked', 'checked');
-			$('tbody > tr').addClass('selected');
 		} else {
 			$('.toggle').removeAttr('checked');
-			$('tbody > tr').removeClass('selected');
 		}
 	});
 
-	// 单击增加支出tab页，加载select的数据
-	$('a[href="#expend_add"], a[href="#expend_search"]').on('shown', function () {
-		$('#add_categoryList > option').remove();
-		$('#search_categoryList > option').remove();
-		for (var i = 0; i < categoryList.length; i++) {
-			var tmp = categoryList[i]['item'];
-			$('#add_categoryList').append('<option value="' + tmp + '">' + tmp + '</option>');
-			$('#search_categoryList').append('<option value="' + tmp + '">' + tmp + '</option>');
-		}
-	})
+	// 数字输入框
+	$('.number').keypress(function (e) {
+		if (e.keyCode >= 48 && e.keyCode <= 57 || e.keyCode == 46) return true;
+		return false;
+	});
 });
 
 window.addEventListener('load', initiate, false);

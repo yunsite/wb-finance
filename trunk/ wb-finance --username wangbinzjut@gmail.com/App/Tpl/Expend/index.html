@@ -11,13 +11,18 @@
 		.modal {
 			margin-top: 100px;
 		}
-		.selected {
-			color: #0000ff;
-			font-style: italic;
-		}
 		.pagination {
 			margin-top: 0;
 			margin-bottom: 0;
+		}
+		.table-hover tbody tr:hover td {
+			background-color: #d9edf7;
+		}
+		.hidden {
+			visibility: hidden;
+		}
+		.bold {
+			font-weight: bold;
 		}
 	</style>
 </head>
@@ -35,26 +40,27 @@
 			<div id="myTabContent" class="tab-content">
 				<!--支出明细-->
 				<div class="tab-pane fade in active" id="expend_detail">
-					<!--<div class="btn-group">-->
-						<!--<button class="btn">修 改</button>-->
-						<!--<button class="btn">删 除</button>-->
-						<!--<button class="btn">刷 新</button>-->
-					<!--</div>-->
-					<div class="pagination">
+					<span class="btn-group" style="float: left">
+						<button class="btn" id="del">删 除</button>
+						<!--<button class="btn" id="update">修 改</button>-->
+						<button class="btn" id="refresh">刷 新</button>
+					</span>
+					<div class="pagination" style="float: right">
 						<ul>
 							{$page}
 						</ul>
 					</div>
+					<div style="clear: both"></div>
 					<!--表格-->
 					<table class="table table-bordered table-hover">
 						<!--表头-->
 						<thead>
 							<tr>
-								<th><input type="checkbox" id="selectAll"></th>
-								<th>类 别</th>
-								<th>金 额</th>
-								<th>时 间</th>
-								<th>操 作</th>
+								<th style="width: 5%"><input type="checkbox" id="selectAll"></th>
+								<th style="width: 32%">类 别</th>
+								<th style="width: 32%">金 额</th>
+								<th style="width: 31%">时 间</th>
+								<!--<th>操 作</th>-->
 							</tr>
 						</thead>
 						<!--数据-->
@@ -65,13 +71,12 @@
 									<td><input type="checkbox" class="toggle"></td>
 									<td>{$vo.item}</td>
 									<td>{$vo.money}元</td>
-									<td>{$vo.time}</td>
-									<td>
-										<a style="cursor:pointer" title="删除" onclick="del({$vo.id}, 'expend')"><img
-												src="__PUBLIC__/Images/del.png" border="0"/></a>
-										<a style="cursor:pointer" title="修改" href="#expend_update" data-toggle="modal"
-										   onclick="showUpdateDialog('{$vo.id}', '{$vo.item}', '{$vo.money}', '{$vo.time}')">
-											<img src="__PUBLIC__/Images/alter.png" border="0"/></a>
+									<td>{$vo.time}
+										<span class="hidden" style="float: right">
+											<a style="cursor:pointer" title="修改" href="#expend_update" data-toggle="modal"
+											   onclick="showUpdateDialog('{$vo.id}', '{$vo.item}', '{$vo.money}', '{$vo.time}')">
+												<img src="__PUBLIC__/Images/alter.png" border="0"/></a>
+										</span>
 									</td>
 								</tr>
 							</volist>
@@ -96,5 +101,9 @@
 <load href="__PUBLIC__/Js/Jquery/jquery.min.js"/>
 <load href="__PUBLIC__/bootstrap/js/bootstrap.min.js"/>
 <load href="__PUBLIC__/Js/expend.js"/>
+
+<load href="__PUBLIC__/plugin/bootstrap-datepicker/bootstrap-datepicker.js"/>
+<load href="__PUBLIC__/plugin/bootstrap-datepicker/bootstrap-datepicker.zh-CN.js"/>
+<load href="__PUBLIC__/plugin/bootstrap-datepicker/datepicker.css"/>
 </body>
 </html>

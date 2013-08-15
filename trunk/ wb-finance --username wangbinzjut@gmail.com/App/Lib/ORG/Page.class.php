@@ -29,7 +29,10 @@ class Page
 	// 分页的栏的总页数
 	protected $coolPages;
 	// 分页显示定制
-	protected $config = array('header' => '条记录', 'prev' => '上一页', 'next' => '下一页', 'first' => '第一页', 'last' => '最后一页', 'theme' => ' <li><a>%totalRow% %header%</a></li> <li><a>%nowPage%/%totalPage% 页</a></li> %upPage% %linkPage% %downPage%');
+	protected $config = array('header' => '条记录', 'prev' => '上一页',
+							  'next' => '下一页', 'first' => '第一页',
+							  'last' => '最后一页',
+							  'theme' => ' <li><a>%totalRow% %header%</a></li> <li><a>%nowPage%/%totalPage% 页</a></li> %upPage% %linkPage% %downPage%');
 	// 默认分页变量名
 	protected $varPage;
 
