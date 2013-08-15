@@ -1,5 +1,3 @@
-//var categoryList;
-
 function initiate() {
 	$('#add_time,#update_time').datepicker({
 		format: "yyyy-mm-dd",
@@ -66,28 +64,6 @@ function showUpdateDialog(id, item, money, time) {
 function add_cancle() {
 	$('#add_money').val('');
 	$('#add_time').val('');
-}
-
-function add_add() {
-	var item = $('#add_category');
-	var money = $('#add_money');
-	var time = $('#add_time');
-
-	if (money.val() == '' || time.val() == '') return false;
-	$.ajax({
-		url: 'expend_add',
-		type: 'post',
-		data: {item: item.val(), money: money.val(), time: time.val()},
-		success: function(data) {
-//			alert("success");
-			alert(data);
-			// 添加成功后刷新页面
-//			window.location.reload();
-		},
-		error: function () {
-			alert('add error');
-		}
-	});
 }
 
 function search() {
