@@ -74,9 +74,6 @@ class ExpendAction extends CommonAction {
 
 	// 增加记录
 	public function expend_add() {
-//		$item               = trim($_POST['item']);
-//		$data['money']      = trim($_POST['money']);
-//		$data['time']       = trim($_POST['time']);
 		$item               = trim($_POST['add_category']);
 		$data['money']      = trim($_POST['add_money']);
 		$data['time']       = trim($_POST['add_time']);
@@ -86,18 +83,12 @@ class ExpendAction extends CommonAction {
 		$Bill               = M('Bill');
 		$data['userId']     = $this->getUserId();
 		$data['typeId']     = 1;
-//		$Bill->add($data);
-//		$this->redirect('index');
-//		$this->ajaxReturn($data);
-		dump($data);
 
 		if ($Bill->add($data)) {
-			echo "success";
 			$this->redirect('index');
 		} else {
 			header("Content-Type:text/html; charset=utf-8");
-			echo "error";
-			echo $Bill->getError();
+			exit($Bill->getError() . ' [ <a href="javascript:history.back()">返 回</a> ]');
 		}
 	}
 
