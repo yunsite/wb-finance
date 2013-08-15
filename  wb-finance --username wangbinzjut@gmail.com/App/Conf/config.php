@@ -10,11 +10,11 @@ return array(
 
 	'SHOW_ERROR_MSG'       => true,
 	'SHOW_PAGE_TRACE'      => true,
-	'APP_DEBUG'            => true,
+//	'APP_DEBUG'            => true,
 	'URL_MODEL'            => 2,
 	'SESSION_AUTO_START'   => true, // 自动开启session
 	'URL_CASE_INSENSITIVE' => true,
-	'USER_AUTH_KEY'        => 'finance_user_id',
+	'USER_AUTH_KEY'        => 'finance_user_name',
 	'Appname'              => '个人理财系统',
 	'App'                  => '__ROOT__/Finance',
 	'VAR_PAGE'             => 'p',

@@ -30,11 +30,11 @@ class IndexAction extends CommonAction {
 
 	public function bug() {
 		header("Content-Type: text/html; charset=utf-8");
-		echo "1、table中点击某一行选中checkbox，但是单击了删除和修改按钮也选中了checkbox.<br/>";
+		echo "1、点击支出列表checkbox问题.<br/>";
 		echo "2、每个页面加载前检查session，安全性：session['user_shell']=name.pwd.常量  php100 51讲<br/>";
 		echo "3、登录超时 php100 52讲<br/>";
-		echo "4、成功后将结果添加到table的第一行<br/>";
-		echo "5、分页<br/>";
+		echo "4、自动登录问题<br/>";
+		echo "5、金额只能为数字问题<br/>";
 	}
 
 	public function test() {
@@ -56,21 +56,7 @@ class IndexAction extends CommonAction {
 		//	$this->redirect('index');
 		//}
 		$this->assign('title', '个人理财系统');
-		$this->display();
-	}
-
-	public function index2() {
-//    	if (isset($_COOKIE['user'])) {
-//    		$_SESSION['user'] = $_COOKIE['user'];
-//			$this->redirect('index');
-//		}
-		if (!isset($_SESSION[C('USER_AUTH_KEY')])) {
-			$this->redirect('Login/index2');
-		}
-		//if (!isset($_COOKIE['user'])) {
-		//	$this->redirect('index');
-		//}
-		$this->assign('title', '个人理财系统');
+		$this->assign('user', $_SESSION[C('USER_AUTH_KEY')]);
 		$this->display();
 	}
 

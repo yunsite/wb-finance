@@ -41,6 +41,9 @@ class ExpendAction extends CommonAction {
 		$page = $p->show(); //分页的导航条的输出变量
 		$this->assign("page", $page);
 		$this->assign('expendList', $expendList);
+		$this->assign('user', $_SESSION[C('USER_AUTH_KEY')]);
+		$categoryList = $this->getCL_expend();
+		$this->assign('categoryList', $categoryList);
 		$this->display();
 	}
 
@@ -69,28 +72,33 @@ class ExpendAction extends CommonAction {
 		$this->ajaxReturn($data);
 	}
 
-	// 返回categoryList_expend给js
-	public function expend_categoryList() {
-		$data['categoryList'] = $this->getCL_expend();
-		$this->ajaxReturn($data);
-	}
-
 	// 增加记录
 	public function expend_add() {
-		$item               = trim($_POST['item']);
-		$data['money']      = trim($_POST['money']);
-		$data['time']       = trim($_POST['time']);
+//		$item               = trim($_POST['item']);
+//		$data['money']      = trim($_POST['money']);
+//		$data['time']       = trim($_POST['time']);
+		$item               = trim($_POST['add_category']);
+		$data['money']      = trim($_POST['add_money']);
+		$data['time']       = trim($_POST['add_time']);
 		$Category           = M('Category');
 		$rsCategory         = $Category->where("item='$item'")->find();
 		$data['categoryId'] = $rsCategory['id'];
 		$Bill               = M('Bill');
 		$data['userId']     = $this->getUserId();
 		$data['typeId']     = 1;
-		$id                 = $Bill->add($data);
+//		$Bill->add($data);
+//		$this->redirect('index');
+//		$this->ajaxReturn($data);
+		dump($data);
 
-		$data['id']   = $id;
-		$data['item'] = $item;
-		$this->ajaxReturn($data);
+		if ($Bill->add($data)) {
+			echo "success";
+			$this->redirect('index');
+		} else {
+			header("Content-Type:text/html; charset=utf-8");
+			echo "error";
+			echo $Bill->getError();
+		}
 	}
 
 	public function expend_search() {
@@ -98,6 +106,5 @@ class ExpendAction extends CommonAction {
 		$starttime = trim($_POST['starttime']);
 		$endtime   = trim($_POST['endtime']);
 		$Bill      = M('Bill');
-
 	}
 }

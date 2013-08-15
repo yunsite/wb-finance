@@ -1,7 +1,11 @@
 <div class="tab-pane fade" id="expend_search">
 	<form class="form-inline">
 		<label>类 别</label>
-		<select id="search_categoryList" name="category" class="input-medium">
+		<select id="search_category" name="category" class="input-medium">
+			<!-- 循环将数据输出 -->
+			<volist name="categoryList" id="cl">
+				<option value="{$cl.item}">{$cl.item}</option>
+			</volist>
 		</select>&nbsp;&nbsp;&nbsp;
 		<label>起止时间</label>
 		<input type="date" class="input-medium" id="search_starttime"> —
@@ -29,13 +33,13 @@
 					<td><input type="checkbox" class="search_toggle"></td>
 					<td>{$vo.item}</td>
 					<td>{$vo.money}元</td>
-					<td>{$vo.time}</td>
-					<td>
-						<a style="cursor:pointer" title="删除" onclick="del({$vo.id}, 'expend')"><img
-								src="../Public/Images/del.png" border="0"/></a>
-						<a style="cursor:pointer" title="修改" href="#expend_update" data-toggle="modal"
-						   onclick="showUpdateDialog('{$vo.id}', '{$vo.item}', '{$vo.money}', '{$vo.time}')">
-							<img src="../Public/Images/alter.png" border="0"/></a>
+					<td>{$vo.time}
+						<span class="hidden" style="float: right">
+							<a style="cursor:pointer" title="修改" href="#expend_update"
+							   data-toggle="modal"
+							   onclick="showUpdateDialog('{$vo.id}', '{$vo.item}', '{$vo.money}', '{$vo.time}')">
+								<img src="__PUBLIC__/Images/alter.png" border="0"/></a>
+						</span>
 					</td>
 				</tr>
 			</volist>

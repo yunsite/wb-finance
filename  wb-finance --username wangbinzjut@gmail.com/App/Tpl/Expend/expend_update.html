@@ -9,20 +9,24 @@
 			<div class="control-group">
 				<label class="control-label">类 别</label>
 				<div class="controls">
-					<select id="categoryList" name="category">
+					<select id="update_category">
+						<!-- 循环将数据输出 -->
+						<volist name="categoryList" id="cl">
+							<option value="{$cl.item}">{$cl.item}</option>
+						</volist>
 					</select>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="update_money">金 额</label>
 				<div class="controls">
-					<input type="text" min="0" id="update_money" name="update_money" required="required"/>
+					<input type="text" class="number" id="update_money" name="update_money" required="required"/>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="update_time">时 间</label>
 				<div class="controls">
-					<input type="date" id="update_time" name="update_time" required="required"/>
+					<input type="text" id="update_time" name="update_time" required="required"/>
 					<input type="hidden" id="update_id" name="update_id"/>
 				</div>
 			</div>
